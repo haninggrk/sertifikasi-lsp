@@ -161,17 +161,23 @@ class VehicleController extends Controller
             $vehicle->passenger_count = $request->passenger_count;
             $vehicle->manufacturer = $request->manufacturer;
             $vehicle->price = $request->price;
-    
             // Update vehicleable specific fields based on the vehicleable type
-            if ($request->vehicleable_type === 'App\\Models\\Motorcycle') {
-                $vehicle->vehicleable->luggage_size = $request->luggage_size;
-                $vehicle->vehicleable->fuel_capacity = $request->fuel_capacity;
-            } elseif ($request->vehicleable_type === 'App\\Models\\Truck') {
-                $vehicle->vehicleable->wheel_count = $request->wheel_count;
-                $vehicle->vehicleable->cargo_size = $request->cargo_size;
-            } elseif ($request->vehicleable_type === 'App\\Models\\Car') {
-                $vehicle->vehicleable->fuel_type = $request->fuel_type;
-                $vehicle->vehicleable->trunk_size = $request->trunk_size;
+            if ($vehicle->vehicleable_type == 'App\Models\Motorcycle') {
+                $moto = Motorcycle::find($vehicle->vehicleable->id);
+                $moto->luggage_size = $request->luggage_size;
+                $moto->fuel_capacity = $request->fuel_capacity;
+                $moto->save();
+            } elseif ($vehicle->vehicleable_type == 'App\Models\Truck') {
+                $truck = Truck::find($vehicle->vehicleable->id);
+                $truck->wheel_count = $request->wheel_count;
+                $truck->cargo_size = $request->cargo_size;
+                $truck->save();
+            } elseif ($vehicle->vehicleable_type == 'App\Models\Car') {
+
+                $car = Car::find($vehicle->vehicleable->id);
+              $car->fuel_type = $request->fuel_type;
+                $car->trunk_size = $request->trunk_size;
+                $car->save();
             }
     
             if ($request->hasFile('image_url')) {
@@ -187,6 +193,7 @@ class VehicleController extends Controller
     
             return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully.');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->withInput()->with('error', 'An error occurred while updating the vehicle.');
         }
     }

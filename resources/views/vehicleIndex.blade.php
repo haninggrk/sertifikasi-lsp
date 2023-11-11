@@ -24,6 +24,8 @@
           </th>
           <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
 Image          </th>
+<th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+  Model          </th>
           <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
             Year
           </th>
@@ -208,7 +210,7 @@ Image          </th>
                 Price
               </th>
               <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                Fuel Capacity
+                Wheel Count
               </th>
               <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                 Luggage Size
