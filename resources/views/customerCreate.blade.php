@@ -23,7 +23,9 @@
     <h1 class="mt-5 text-2xl font-bold">Add Customer</h1>
     <form method="POST" action="{{ $customer ? route('customers.update',$customer) : route('customers.store') }}">
       @CSRF
+      @if($customer)
       @method("PUT")
+      @endif
     <div class="grid grid-cols-10 gap-4 mt-5">
       <div class="col-span-2">
           <div>
@@ -97,7 +99,7 @@
           <div class="flex">
           
             
-              <input type="submit" value="Add User"
+              <input type="submit" value="{{$customer ? "Save Changes" : "Add User" }}"
     class="self-end inline-block rounded bg-black px-8 py-2 text-sm font-medium text-white transition  active:bg-black"
   >
   
